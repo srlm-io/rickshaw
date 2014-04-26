@@ -3301,7 +3301,7 @@ Rickshaw.Graph.Renderer = Rickshaw.Class.create( {
 
 		series.path.setAttribute('fill', fill);
 		series.path.setAttribute('stroke', stroke);
-		series.path.setAttribute('stroke-width', this.strokeWidth);
+		series.path.setAttribute('stroke-width', series.strokeWidth ? series.strokeWidth: this.strokeWidth);
 
 		if (series.className) {
 			d3.select(series.path).classed(series.className, true);
