@@ -1,9 +1,29 @@
 # Forked Repository
 
 This is a fork of the ShutterStock master repository. Changes include:
-1. Pulled the VividCortex Range Selection tool. Brought it up to match the current ShutterStock Master
-2. Added support for selecting line width.
+ - Pulled the VividCortex Range Selection tool. Brought it up to match the current ShutterStock Master
+ - Added support for selecting line width.
+ 
+The sequence of commands that I used to integrate the shutterstock master into this repository:
+```
+git clone git@github.com:srlmproductions/rickshaw.git
+cd rickshaw/
+git fetch
+git branch range-selection-tool remotes/origin/range-selection-tool
+git checkout range-selection-tool
+git remote add shutterstock git@github.com:shutterstock/rickshaw.git
+git fetch shutterstock
+git branch shutterstockmaster remotes/shutterstock/master
+git checkout shutterstockmaster
+git pull
+git checkout range-selection-tool
+git merge -X theirs shutterstockmaster
 
+# Edit makefile (add RangeSelector paths...) and add two semicolons to RangeSelector
+rm rickshaw.js 
+rm rickshaw.css 
+make
+```
 
 
 # Rickshaw
