@@ -1,3 +1,11 @@
+# Forked Repository
+
+This is a fork of the ShutterStock master repository. Changes include:
+1. Pulled the VividCortex Range Selection tool. Brought it up to match the current ShutterStock Master
+2. Added support for selecting line width.
+
+
+
 # Rickshaw
 
 Rickshaw is a JavaScript toolkit for creating interactive time series graphs, developed at [Shutterstock](http://www.shutterstock.com)
