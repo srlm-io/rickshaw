@@ -111,7 +111,7 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
 
         graph.element.addEventListener('mouseleave', function (e) {
             self.clearSelection();
-            finishDrawing(e)
+            finishDrawing(e);
         }, false);
 
         graph.window.xMin = position.xMin;
@@ -158,7 +158,7 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
                 }
             }
             return nearest;
-        }
+        };
 
         var starting = getNearest(start);
         var ending = getNearest(end);

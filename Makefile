@@ -12,6 +12,7 @@ CSS_FILES=\
 	src/css/detail.css\
 	src/css/graph.css\
 	src/css/legend.css\
+	src/css/rangeSelector.css\
 
 JS_FILES=\
 	src/helpers/startUMD.js\
@@ -37,6 +38,7 @@ JS_FILES=\
 	src/js/Rickshaw.Graph.HoverDetail.js\
 	src/js/Rickshaw.Graph.JSONP.js\
 	src/js/Rickshaw.Graph.Legend.js\
+	src/js/Rickshaw.Graph.RangeSelector.js\
 	src/js/Rickshaw.Graph.RangeSlider.js\
 	src/js/Rickshaw.Graph.RangeSlider.Preview.js\
 	src/js/Rickshaw.Graph.Renderer.js\
