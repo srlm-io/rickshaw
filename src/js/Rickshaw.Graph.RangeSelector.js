@@ -63,9 +63,9 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
 
                     selectionBox.style.transition = 'none';
                     selectionBox.style.opacity = '1';
-                    selectionBox.style.width = position.deltaX;
+                    selectionBox.style.width = position.deltaX + 'px';
                     selectionBox.style.height = '100%';
-                    selectionBox.style.left = position.minX;
+                    selectionBox.style.left = position.minX + 'px';
                 } else {
                     return false;
                 }
