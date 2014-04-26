@@ -3,6 +3,7 @@
 This is a fork of the ShutterStock master repository. Changes include:
  - Pulled the VividCortex Range Selection tool. Brought it up to match the current ShutterStock Master
  - Added support for selecting line width.
+ - Added more zooming functionality to Range Selection. You can now pass an onZoomOut function that will be called on right click, instead of the default onZoom. You can also pass `false` to the rangeSelector.zoomTo function to prevent the onZoom function being called (allows you to call zoomTo from within onZoom).
  
 The sequence of commands that I used to integrate the shutterstock master into this repository:
 ```

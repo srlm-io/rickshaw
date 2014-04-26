@@ -2414,6 +2414,7 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
     initialize: function (args) {
         var graph = this.graph = args.graph,
             onZoom = this.onZoom = args.onZoom,
+            onZoomOut = this.onZoomOut = args.onZoomOut,
             start = this.start = args.start,
             end = this.end = args.end,
             position = this.position = {},
@@ -2492,9 +2493,13 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
                 selectionDraw(startPointX);
             } else if (e.button === 2 | e.button === 3) {
                 e.preventDefault();
-                var start = graph.dataDomain()[0],
-                    end = graph.dataDomain()[1];
-                self.zoomTo(start,end);
+                if(typeof self.onZoomOut === 'function'){
+                    self.onZoomOut();
+                }else{
+                    var start = graph.dataDomain()[0],
+                        end = graph.dataDomain()[1];
+                    self.zoomTo(start,end);
+                }
             } else {
                 return;
             }
@@ -2593,7 +2598,7 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
         }
         return position;
     },
-    zoomTo: function (start, end) {
+    zoomTo: function (start, end, callOnZoom) {
         var graph = this.graph,
             position = this.position,
             e = {
@@ -2602,7 +2607,9 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
         position.xMin = start;
         position.xMax = end;
         e.position = position;
-        this.onZoom(e);
+        if(callOnZoom !== false){
+            this.onZoom(e);
+        }
         graph.update(start, end);
         this.clearSelection();
         graph.update(start, end);
