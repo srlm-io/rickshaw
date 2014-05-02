@@ -2174,12 +2174,12 @@ Rickshaw.Graph.HoverDetail = Rickshaw.Class.create({
 		}
 	},
 
-	show: function() {
+	show: function(x, y) {
 		this.visible = true;
 		this.element.classList.remove('inactive');
 
-		if (typeof this.onShow == 'function') {
-			this.onShow();
+		if (typeof this.onShow === 'function') {
+			this.onShow(x, y);
 		}
 	},
 
@@ -2236,7 +2236,7 @@ Rickshaw.Graph.HoverDetail = Rickshaw.Class.create({
 			el.classList.add('left');
 		});
 
-		this.show();
+		this.show(point.value.x, point.value.y);
 
 		// If left-alignment results in any error, try right-alignment.
 		var leftAlignError = this._calcLayoutError(alignables);
@@ -2409,6 +2409,28 @@ Rickshaw.Graph.Legend = Rickshaw.Class.create( {
 	}
 } );
 
+Rickshaw.namespace('Rickshaw.Graph.Marker');
+
+Rickshaw.Graph.Marker = Rickshaw.Class.create({
+    initialize: function(args){
+        this.graph = args.graph;
+        
+        var element = this.element = document.createElement('div');
+        element.className = 'marker';
+
+        this.graph.element.appendChild(element);
+        this.hide();
+    },
+    setX: function(newX){
+        this.element.style.left = this.graph.x(newX) + 'px';
+    },
+    show: function(){
+        this.element.classList.remove('inactive');
+    },
+    hide: function(){
+        this.element.classList.add('inactive');
+    }
+});
 Rickshaw.namespace('Rickshaw.Graph.RangeSelector');
 Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
     initialize: function (args) {
@@ -2422,12 +2444,6 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
             selectionControl = this.selectionControl = false,
             parent = this.parent = graph.element.getElementsByTagName('svg')[0],
             tDomain = this.tDomain = [];
-
-        for (var i=0; i < graph.stackedData.length; i+=1) {
-            for (var j=0; j < graph.stackedData[i].length; j+=1) {
-                tDomain.push(graph.stackedData[i][j].x);
-            }
-        }
 
         this.build(start, end);
     },
@@ -2529,13 +2545,6 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
             self.clearSelection();
             finishDrawing(e);
         }, false);
-
-        graph.window.xMin = position.xMin;
-        graph.window.xMax = position.xMax;
-
-        graph.onUpdate(function () {
-            this.update(position.xMin, position.xMax);
-        }.bind(this));
     },
     clearSelection: function () {
         var selectionBox = this.selectionBox,
@@ -2582,25 +2591,13 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
         if (starting === ending) {
             return;
         } else {
-            graph.window.xMin = starting;
-            graph.window.xMax = ending;
-
-            if (graph.window.xMin === null) {
-                position.xMin = graph.dataDomain()[0];
-            }
-
-            if (graph.window.xMax === null) {
-                position.xMax = graph.dataDomain()[1];
-            }
-
             position.xMin = graph.window.xMin;
             position.xMax = graph.window.xMax;
         }
         return position;
     },
     zoomTo: function (start, end, callOnZoom) {
-        var graph = this.graph,
-            position = this.position,
+        var position = this.position,
             e = {
                 type: 'zoomToCall'
             };
@@ -2610,9 +2607,7 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
         if(callOnZoom !== false){
             this.onZoom(e);
         }
-        graph.update(start, end);
         this.clearSelection();
-        graph.update(start, end);
     }
 });
 
