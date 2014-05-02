@@ -12,12 +12,6 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
             parent = this.parent = graph.element.getElementsByTagName('svg')[0],
             tDomain = this.tDomain = [];
 
-        for (var i=0; i < graph.stackedData.length; i+=1) {
-            for (var j=0; j < graph.stackedData[i].length; j+=1) {
-                tDomain.push(graph.stackedData[i][j].x);
-            }
-        }
-
         this.build(start, end);
     },
     build: function (start, end) {
@@ -118,13 +112,6 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
             self.clearSelection();
             finishDrawing(e);
         }, false);
-
-        graph.window.xMin = position.xMin;
-        graph.window.xMax = position.xMax;
-
-        graph.onUpdate(function () {
-            this.update(position.xMin, position.xMax);
-        }.bind(this));
     },
     clearSelection: function () {
         var selectionBox = this.selectionBox,
@@ -171,25 +158,13 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
         if (starting === ending) {
             return;
         } else {
-            graph.window.xMin = starting;
-            graph.window.xMax = ending;
-
-            if (graph.window.xMin === null) {
-                position.xMin = graph.dataDomain()[0];
-            }
-
-            if (graph.window.xMax === null) {
-                position.xMax = graph.dataDomain()[1];
-            }
-
             position.xMin = graph.window.xMin;
             position.xMax = graph.window.xMax;
         }
         return position;
     },
     zoomTo: function (start, end, callOnZoom) {
-        var graph = this.graph,
-            position = this.position,
+        var position = this.position,
             e = {
                 type: 'zoomToCall'
             };
@@ -199,9 +174,7 @@ Rickshaw.Graph.RangeSelector = Rickshaw.Class.create({
         if(callOnZoom !== false){
             this.onZoom(e);
         }
-        graph.update(start, end);
         this.clearSelection();
-        graph.update(start, end);
     }
 });
 
