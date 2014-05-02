@@ -141,12 +141,12 @@ Rickshaw.Graph.HoverDetail = Rickshaw.Class.create({
 		}
 	},
 
-	show: function() {
+	show: function(x, y) {
 		this.visible = true;
 		this.element.classList.remove('inactive');
 
-		if (typeof this.onShow == 'function') {
-			this.onShow();
+		if (typeof this.onShow === 'function') {
+			this.onShow(x, y);
 		}
 	},
 
@@ -203,7 +203,7 @@ Rickshaw.Graph.HoverDetail = Rickshaw.Class.create({
 			el.classList.add('left');
 		});
 
-		this.show();
+		this.show(point.value.x, point.value.y);
 
 		// If left-alignment results in any error, try right-alignment.
 		var leftAlignError = this._calcLayoutError(alignables);

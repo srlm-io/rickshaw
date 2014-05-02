@@ -5,6 +5,7 @@ This is a fork of the ShutterStock master repository. Changes include:
  - Added support for selecting line width.
  - Added more zooming functionality to Range Selection. You can now pass an onZoomOut function that will be called on right click, instead of the default onZoom. You can also pass `false` to the rangeSelector.zoomTo function to prevent the onZoom function being called (allows you to call zoomTo from within onZoom).
  - Range Selection no longer zooms on the graph. Instead, you should use the callbacks and zoomTo method if you want to zoom. This is motivated by dynamic data loading: it's easier just to pull new higher resolution data from the server when the user zooms.
+ - HoverDetail has an onShow(x, y) method that you can specify
 
  
 The sequence of commands that I used to integrate the shutterstock master into this repository:
