@@ -11,6 +11,7 @@ This is a fork of the ShutterStock master repository. Changes include:
 var marker = new Rickshaw.Graph.Marker({
    graph: graph
 });
+ - Added a Rickshaw.Fixtures.Time.Millisecond class. This interprets the X values as milliseconds. Useful for displaying with a Rickshaw.Graph.Axis.Time axis as a timeFixture argument.
 
 marker.setX(523);
 marker.show();
